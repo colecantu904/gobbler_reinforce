@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gobbler</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f4f4f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #444;
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: white;
+        }
+
+        td button {
+            width: 100%;
+            height: 100%;
+            font-size: 2rem;
+            font-weight: bold;
+            border: none;
+            background: #eaeaea;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        td button:hover {
+            background: #d0d0d0;
+        }
+
+        .winner {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px 20px;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .draw {
+            background-color: #ffeeba;
+            color: #856404;
+            padding: 10px 20px;
+            border: 1px solid #ffeeba;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        a {
+            margin-top: 15px;
+            display: inline-block;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .piece {
+            border-radius: 50%;
+            width: 80%;
+            height: 75%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align:center;">Gobblers</h2>
+    <form method="POST">
+        <table border="1">
+            {% for i in range(3) %}
+                <tr>
+                    {% for j in range(3) %}
+                        <td>
+                            <button name="move" value="{{ i }}{{ j }}" style="width: 100%; height: 100%; max-height: 100%; max-width: 100%;">
+                                {% if not board[i][j][-1] %}
+                                    {{i}}{{j}}
+                                {% else %}
+                                    {% if board[i][j][-1][0] == 'b' %}
+                                        <div class="piece" style="background-color: blue;">{{ board[i][j][-1][1]}}</div>
+                                    {% else %}
+                                        <div class="piece" style="background-color: red;">{{ board[i][j][-1][1]}}</div>
+                                    {% endif %}
+                                {% endif %}
+                            </button>
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+        <select name="size" style="display:block; margin: 20px auto; width: 200px;">
+            <option value="0">small</option>
+            <option value="1">medium</option>
+            <option value="2">large</option>
+        </select>
+    </form>
+
+    {% if winner %}
+        {% if winner != "Tie!" %}
+            <p class="winner" style="text-align:center;">🎉 Winner: {{ winner }}</p>
+        {% else %}
+            <p class="draw" style="text-align:center;">🤝 It's a Tie!</p>
+        {% endif %}
+    {% endif %}
+    <div style="text-align:center;">
+        <a href="/reset">Restart Game</a>
+    </div>
+</body>
+</html>

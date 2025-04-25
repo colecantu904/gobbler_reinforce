@@ -28,8 +28,8 @@ class Gobbler:
             for j in range(3):
                 # if the piece is not empty, remove it from the available pieces
                 # and decrease the count of that piece
-                if self.board[i][j] != []:
-                    available_pieces[self.board[i][j][0]] -= 1
+                for piece in self.board[i][j]:
+                        available_pieces[piece] -= 1
         return available_pieces
     
     def get_current_player(self):
@@ -49,6 +49,7 @@ class Gobbler:
         else:
             return 'b'
 
+    # this is a little buggy, check to make sure its good.
     def get_possible_moves(self):
         possible_moves = []
         available_pieces = self._get_available_pices()
@@ -62,6 +63,8 @@ class Gobbler:
                         if available_pieces[piece] > 0:
                             if self.board[i][j] == [] or (self.board[i][j] != [] and self.board[i][j][-1][1] < piece[1]):
                                 possible_moves.append((piece, (i, j)))
+        print("Available pieces: ", available_pieces)
+        print("Possible moves: ", possible_moves)
         return possible_moves
     
     def make_move(self, move):
@@ -73,28 +76,30 @@ class Gobbler:
             self.move_history.append(move)
             # check if the game is over
 
+    # maybe should just have this return a boolean
+    # and have the check_game_over function return the winner
     def check_game_over(self):
         # i am pretty sure this is correct, but its so tedious to try every combination!
         # and don't get on me about the long boolean expression, its just how it is
         # check horizantal:
         for i in range(3):
             if self.board[i][0] != [] and self.board[i][1] != [] and self.board[i][2] != [] and self.board[i][0][-1][0] == self.board[i][1][-1][0] == self.board[i][2][-1][0]:
-                return True
+                return self.board[i][0][-1][0]
         # check vertical:
         for i in range(3):
             if self.board[0][i] != [] and self.board[1][i] != [] and self.board[2][i] != [] and self.board[0][i][-1][0] == self.board[1][i][-1][0] == self.board[2][i][-1][0]:
-                return True
+                return self.board[0][i][-1][0]
         # check diagonals:
         if self.board[0][0] != [] and self.board[1][1] != [] and self.board[2][2] != [] and self.board[0][0][-1][0] == self.board[1][1][-1][0] == self.board[2][2][-1][0]:
-            return True
+            return self.board[0][0][-1][0]
         if self.board[0][2] != [] and self.board[1][1] != [] and self.board[2][0] != [] and self.board[0][2][-1][0] == self.board[1][1][-1][0] == self.board[2][0][-1][0]:
-            return True
+            return self.board[0][2][-1][0]
 
         # then its a tie
         if self.get_possible_moves() == []:
-            return True
+            return "Tie!"
         
-        return False
+        return None
 
 
     def get_move_history(self):

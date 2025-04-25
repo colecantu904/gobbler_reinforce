@@ -1,7 +1,7 @@
 ### Todo:
 - [x] Make working Gobblers implementation
 - [ ] Fully test Gobbler implementation
-- [ ] Make a cool web ui with flask or django!
+- [x] Make a cool web ui with flask!
 - [ ] Begin making Q Learning algorithim script
 - [ ] Begin writing 1000 word summary (on this document)
 
