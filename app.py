@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, session
 from gobblers import Gobbler
 
-app = Flask(__name__, template_folder="templates")
+app = Flask(__name__, static_folder="static", template_folder="templates")
 # I don't know what the heck this does
 app.secret_key = "secret123"  # Needed for session
 
@@ -24,6 +24,7 @@ def index():
             size = int(request.form["size"])
             move = ((game.get_current_player(), size), position)
             game.make_move(move)
+            print(game.board)
             session['game'] = game.__dict__
 
     return render_template("index.html", board=game.board, winner=game.check_game_over())

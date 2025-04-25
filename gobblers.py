@@ -63,8 +63,6 @@ class Gobbler:
                         if available_pieces[piece] > 0:
                             if self.board[i][j] == [] or (self.board[i][j] != [] and self.board[i][j][-1][1] < piece[1]):
                                 possible_moves.append((piece, (i, j)))
-        print("Available pieces: ", available_pieces)
-        print("Possible moves: ", possible_moves)
         return possible_moves
     
     def make_move(self, move):
