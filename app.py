@@ -27,7 +27,7 @@ def index():
             print(game.board)
             session['game'] = game.__dict__
 
-    return render_template("index.html", board=game.board, winner=game.check_game_over())
+    return render_template("index.html", board=game.board, winner=game.check_game_over(), pieces=game._get_available_pices(), player=game.get_current_player())
 
 @app.route("/reset")
 def reset():

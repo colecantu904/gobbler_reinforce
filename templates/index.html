@@ -68,6 +68,26 @@
             margin-top: 20px;
         }
 
+        .blueinplay {
+            background-color: #cce5ff;
+            color: #004085;
+            padding: 10px 20px;
+            border: 1px solid #b8daff;
+            border-radius: 5px;
+            margin-top: 20px;
+
+        }
+
+        .redinplay {
+            background-color: #f5c6cb;
+            color: #721c24;
+            padding: 10px 20px;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            margin-top: 20px;
+
+        }
+
         a {
             margin-top: 15px;
             display: inline-block;
@@ -118,9 +138,9 @@
             {% endfor %}
         </table>
         <select name="size" style="display:block; margin: 20px auto; width: 200px;">
-            <option value="0">small</option>
-            <option value="1">medium</option>
-            <option value="2">large</option>
+            <option value="0">small {{pieces[(player, 0)]}}</option>
+            <option value="1">medium {{pieces[(player, 1)]}}</option>
+            <option value="2">large {{pieces[(player, 2)]}}</option>
         </select>
     </form>
 
@@ -130,6 +150,14 @@
         {% else %}
             <p class="draw" style="text-align:center;">🤝 It's a Tie!</p>
         {% endif %}
+        
+        {% else %}
+        {% if player == "b" %}
+            <p class="blueinplay" style="text-align:center; ">Current Player: {{player}}</p>
+        {% else %}
+            <p class="redinplay" style="text-align:center; ">Current Player: {{player}}</p>
+        {% endif %}
+    
     {% endif %}
     <div style="text-align:center;">
         <a href="/reset">Restart Game</a>
