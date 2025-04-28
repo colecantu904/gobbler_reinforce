@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, session
-from gobblers import Gobbler
+from gobblers import gobbler
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
 # I don't know what the heck this does
@@ -7,8 +7,8 @@ app.secret_key = "secret123"  # Needed for session
 
 def get_game():
     if 'game' not in session:
-        session['game'] = Gobbler().__dict__
-    game = Gobbler()
+        session['game'] = gobbler().__dict__
+    game = gobbler()
     game.__dict__.update(session['game'])
     return game
 
